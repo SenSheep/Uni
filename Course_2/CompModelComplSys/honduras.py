@@ -1,36 +1,22 @@
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
 class Solution:
-    def splitListToParts(self, head, k):
-        l = 0
-        curr = head
-        while curr:
-            l += 1
-            curr = curr.next
-        g = l // k # general
-        m = l % k # mod
-        res = []
-        h = []
-        curr = head
+    def longestCommonPrefix(self, arr1: list[int], arr2: list[int]) -> int:
+        pref = []
+        for i in arr1:
+            i = str(i)
+            for g in range(len(i)):
+                pref.append(i[:g+1])
+        pref = set(pref)
 
-        print(g, m)
-
-        for f in range(k):
-            i = 0
-            while curr and i < g:
-                h.append(curr.val)
-                curr = curr.next
-                i += 1
-            if m != 0 and g > 0:
-                h.append(curr.val)
-                curr = curr.next
-            res.append(h)
-            h = []
-
-        return res
-
+        m = 0
+        for i in arr2:
+            i = str(i)
+            h = 1
+            for g in range(len(i)):
+                if i[:g+1] in pref:
+                    max(h, m)
+                    m += 1
+                else:
+                    break
+        return m
 a = Solution()
-print(a.splitListToParts([1,2,3], 5))
+print(a.longestCommonPrefix([1,2,3], [4,4,4]))
