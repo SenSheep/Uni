@@ -1,22 +1,22 @@
 class Solution:
-    def longestCommonPrefix(self, arr1: list[int], arr2: list[int]) -> int:
-        pref = []
-        for i in arr1:
-            i = str(i)
-            for g in range(len(i)):
-                pref.append(i[:g+1])
-        pref = set(pref)
-
-        m = 0
-        for i in arr2:
-            i = str(i)
-            h = 1
-            for g in range(len(i)):
-                if i[:g+1] in pref:
-                    max(h, m)
-                    m += 1
-                else:
+    def smallestChair(self, times: list[list[int]], tF: int):
+        tt = times[tF]
+        t = sorted(times)
+        ch = [0]
+        for i in t:
+            f = 0
+            for g in range(len(ch)):
+                if i[1] <= ch[g]:
+                    ch[g] = t[0]
+                    f = 1
                     break
-        return m
-a = Solution()
-print(a.longestCommonPrefix([1,2,3], [4,4,4]))
+            if f == 0:
+                ch.apppend(t[0])
+                if tt == i:
+                    return ch[g]
+            if tt == i:
+                return ch[g]
+        
+        return ''
+
+
